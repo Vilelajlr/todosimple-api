@@ -20,6 +20,11 @@ import java.util.Objects;
  *  @Id: chave primária
  *  @GeneratedValue: auto incremento
  *  @Column: nome da coluna no banco de dados
+ *  @NotNull: não pode ser nulo
+ *  @NotEmpty: não pode ser vazio
+ *  @Size: tamanho mínimo e máximo
+ *  @JsonProperty: acessa a propriedade
+ * 
  *  
  *  Esta classe é um modelo de dados, que representa a tabela user no banco de dados
  *  
@@ -40,17 +45,43 @@ public class User {
 
     public static final String TABLE_NAME = "user";
     
+    /*
+     *  Criação da Coluna ID na tabela user
+     *  @Id: chave primária
+     *  @GeneratedValue: auto incremento
+     *  @Column: nome da coluna no banco de dados
+     * 
+     */
 
     @Id // chave primária
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto incremento
     @Column(name = "id", unique = true) // nome da coluna no banco de dados
     private Long id;
 
+    /*
+     *  Criação da Coluna USERNAME na tabela user
+     *  @Column: nome da coluna no banco de dados
+     *  @NotNull: não pode ser nulo
+     *  @NotEmpty: não pode ser vazio
+     *  @Size: tamanho mínimo e máximo
+     * 
+     */
+
     @Column(name = "username", length = 100, nullable = false, unique = true)
     @NotNull(groups = CreateUser.class)
     @NotEmpty(groups = CreateUser.class)
     @Size(groups = CreateUser.class, min = 2, max = 100)
     private String username;
+
+    /*
+     *  Criação da Coluna PASSWORD na tabela user
+     *  @Column: nome da coluna no banco de dados
+     *  @NotNull: não pode ser nulo
+     *  @NotEmpty: não pode ser vazio
+     *  @Size: tamanho mínimo e máximo
+     *  @JsonProperty: acessa a propriedade
+     * 
+     */
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(name = "password", length = 60, nullable = false)
@@ -97,6 +128,13 @@ public class User {
         this.password = password;
     }
 
+    /*
+     *  Método equals para comparar objetos
+     *  @Override: sobrescreve o método equals
+     *  @param: objeto a ser comparado
+     *  @return: true se for igual, false se for diferente
+     * 
+     */
 
     @Override
     public boolean equals(Object obj){
@@ -125,6 +163,12 @@ public class User {
 
     }
 
+    /*
+     *  Método hashCode para comparar objetos
+     *  @Override: sobrescreve o método hashCode
+     *  @return: valor inteiro
+     * 
+     */
 
     @Override
     public int hashCode() {
