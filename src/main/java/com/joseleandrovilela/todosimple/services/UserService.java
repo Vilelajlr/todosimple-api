@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.joseleandrovilela.todosimple.models.User;
-import com.joseleandrovilela.todosimple.repositories.TaskRepository;
 import com.joseleandrovilela.todosimple.repositories.UserRepository;
 
 @Service
@@ -15,9 +14,6 @@ public class UserService {
     
     @Autowired // Injeção de dependência
     private UserRepository userRepository;
-
-    @Autowired // Injeção de dependência
-    private TaskRepository taskRepository;
 
     
     public User FindUserById(Long id){
@@ -34,7 +30,6 @@ public class UserService {
         
         user.setId(null);
         user = this.userRepository.save(user);
-        this.taskRepository.saveAll(user.getTasks());
         return user;
     }
 
